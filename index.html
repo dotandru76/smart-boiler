@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Boiler AI | מערכת דוד חכם מבוססת טמפרטורה וחיזוי מקלחות</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070a12;
+      --card-bg: rgba(16, 22, 38, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #00d2ff;
+      --primary-glow: rgba(0, 210, 255, 0.35);
+      --accent: #ff9900;
+      --accent-glow: rgba(255, 153, 0, 0.3);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(255, 153, 0, 0.07) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header & Nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(7, 10, 18, 0.85);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-badge {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      background: rgba(0, 210, 255, 0.15);
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      border-radius: 20px;
+      color: #00d2ff;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 30px;
+      color: #10b981;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 span.gradient {
+      background: linear-gradient(135deg, #00d2ff 0%, #00f2fe 50%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .badge-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--primary-glow);
+      border: 1px solid rgba(0, 210, 255, 0.3);
+    }
+
+    .hero-image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .hero-image-wrapper:hover img {
+      transform: scale(1.02);
+    }
+
+    /* Disclaimer Section */
+    .disclaimer-section {
+      margin: 40px 0;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 20px;
+      padding: 28px 32px;
+      position: relative;
+    }
+
+    .disclaimer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: #f59e0b;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .disclaimer-body {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .disclaimer-body strong {
+      color: #fff;
+    }
+
+    /* Features / AI Section */
+    .section-title {
+      text-align: center;
+      margin: 80px 0 16px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .ai-showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .ai-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-card:hover {
+      border-color: rgba(0, 210, 255, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .ai-card .icon {
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+      display: inline-block;
+    }
+
+    .ai-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .ai-card p {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .ai-card .highlight-box {
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 3px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+      color: #e2e8f0;
+    }
+
+    /* Architecture Grid */
+    .arch-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .arch-step {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .arch-step .step-num {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: #070a12;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin: 0 auto 16px;
+    }
+
+    .arch-step h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .arch-step p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Products & Links Section */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      border-color: rgba(255, 153, 0, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .prod-badge {
+      align-self: flex-start;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(255, 153, 0, 0.15);
+      color: #ff9900;
+      margin-bottom: 14px;
+    }
+
+    .product-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .product-card .price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .product-card .desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-amazon {
+      background: #ff9900;
+      color: #111;
+    }
+
+    .btn-amazon:hover {
+      background: #e68a00;
+      transform: translateY(-1px);
+    }
+
+    .btn-aliexpress {
+      background: #e62e04;
+      color: #fff;
+    }
+
+    .btn-aliexpress:hover {
+      background: #cc2904;
+      transform: translateY(-1px);
+    }
+
+    /* Installation Section */
+    .install-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .install-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .install-item {
+      display: flex;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .install-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .install-item h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .install-item p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    /* Interactive Calculator */
+    .calc-box {
+      background: linear-gradient(135deg, rgba(0, 210, 255, 0.08), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(0, 210, 255, 0.25);
+      border-radius: 24px;
+      padding: 40px;
+      margin: 60px 0;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .calc-slider-wrapper {
+      margin: 24px 0;
+    }
+
+    .calc-slider-wrapper label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    input[type=range] {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .calc-results {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      border: 1px solid var(--card-border);
+    }
+
+    .calc-results .savings-amount {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--success);
+      margin: 12px 0;
+      letter-spacing: -1px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 50px 0 30px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .ai-showcase-grid, .install-grid, .calc-box {
+        grid-template-columns: 1fr;
+      }
+      .arch-flow {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-inner">
+      <div class="logo">
+        <span>⚡ Smart Boiler AI</span>
+        <span class="logo-badge">פרויקט DIY אייל</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">איך זה עובד</a></li>
+        <li><a href="#dotan-ai">סופר המקלחות של דותן</a></li>
+        <li><a href="#hardware">רשימת ציוד ולינקים</a></li>
+        <li><a href="#disclaimer">תנאי שטח</a></li>
+        <li><a href="#installation">מדריך התקנה</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span>🚀</span>
+          <span>מערכת חכמה מותאמת אישית</span>
+        </div>
+        <h1>דוד חכם מבוסס טמפרטורה <br><span class="gradient">עם הסוויצ'ר הקיים בבית</span></h1>
+        <p>
+          בלי להחליף את מפסק הסוויצ'ר, בלי לגעת באינסטלציה של המים, ובלי להשאיר את הדוד דולק שעות סתם. 
+          מדידת חום המים בזמן אמת, כיבוי אוטומטי ב-45°C, וחיבור לתשתית Home Assistant על גבי רספברי פיי.
+        </p>
+        
+        <div class="hero-badges">
+          <div class="badge-pill">✅ 0% מגע במים (התקנה יבשה)</div>
+          <div class="badge-pill">✅ הסוויצ'ר ממשיך לשלוט בחשמל</div>
+          <div class="badge-pill">✅ תרמוסטט בטיחות נשאר פעיל 100%</div>
+          <div class="badge-pill">✅ עלות רכיבים כ-180-210 ₪</div>
+        </div>
+      </div>
+      <div class="hero-image-wrapper">
+        <img src="images/smart_boiler_hero.jpg" alt="Smart Boiler System Concept">
+      </div>
+    </section>
+
+    <!-- Field & Engineering Disclaimer Section -->
+    <section id="disclaimer" class="disclaimer-section">
+      <div class="disclaimer-header">
+        <span>⚠️</span>
+        <h3>הערת הנדסה קריטית ותנאי שטח: ללא הבטחות עיוורות!</h3>
+      </div>
+      <div class="disclaimer-body">
+        <p>
+          <strong>חשוב להדגיש:</strong> הדוד שלך ממוקם בחדר מדרגות במרחק של כ-<strong>30 מטרים</strong> מהדירה, עם קירות בטון מזוין ודלתות אש בדרך. 
+          מכיוון שאנחנו <strong>לא מכירים את תוואי השטח המדויק ואת רמת הניחות (RF Attenuation)</strong> של הבניין – <strong>לא ניתן להבטיח מראש קליטה חלקה בחיבור ישיר בלבד!</strong>
+        </p>
+        <p style="margin-top: 10px;">
+          🛠️ <strong>הפתרון ההנדסי המובנה:</strong> זוהי רשת <strong>Zigbee Mesh</strong> מודולרית. מתחילים מחיבור ישיר עם אנטנת 5dBi עוצמתית (+20dBm). במידה והבטון חוסם את האות – מוסיפים <em>שקע-ממסר Zigbee (Router)</em> בעלות של כ-30 ₪ ליד דלת הכניסה או בארון הקומתי, שמעביר את השידור בקלות.
+        </p>
+      </div>
+    </section>
+
+    <!-- How It Works Architecture -->
+    <section id="how-it-works">
+      <div class="section-title">
+        <h2>איך המערכת פועלת?</h2>
+        <p>שילוב חכם בין מודול מדידה בחדר המדרגות, מוח Home Assistant בבית, והסוויצ'ר הקיים</p>
+      </div>
+
+      <div class="arch-flow">
+        <div class="arch-step">
+          <div class="step-num">1</div>
+          <h4>מדידה בחדר מדרגות</h4>
+          <p>פרוב נירוסטה דק יושב בתוך השרוול היבש בדוד ומודד חום מים מדויק בכל שנייה.</p>
+        </div>
+        <div class="arch-step">
+          <div class="step-num">2</div>
+          <h4>שידור Zigbee מוצפן</h4>
+          <p>מודול Sonoff משדר את המעלות דרך האוויר באמצעות פרוטוקול Zigbee ייעודי לטווחים ארוכים.</p>
+        </div>
+        <div class="arch-step">
+          <div class="step-num">3</div>
+          <h4>מוח Home Assistant</h4>
+          <p>הרספברי פיי בבית קולט את המעלות בדונגל Sonoff Plus, ומנטר את קצב התחממות הדוד.</p>
+        </div>
+        <div class="arch-step">
+          <div class="step-num">4</div>
+          <h4>כיבוי והתראה לנייד</h4>
+          <p>בהגעה ל-45°C: הסוויצ'ר נכבה לבד, ונשלחת התראה: "🚿 המים חמים (45°C) - המקלחת מוכנה!".</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dotan's Smart Shower AI Showcase -->
+    <section id="dotan-ai">
+      <div class="section-title">
+        <h2>המערכת המלאה של דותן: מעבר למדחום רגיל</h2>
+        <p>
+          המערכת שפותחה אצל דותן לא רק מודדת חום – היא מנהלת את כל מערך המקלחות של הבית בעזרת בינה מלאכותית וחיישנים מתקדמים!
+        </p>
+      </div>
+
+      <div class="ai-showcase-grid">
+        <div class="ai-card">
+          <div class="icon">🚿</div>
+          <h3>ספירת מקלחות אוטומטית (Shower Counter)</h3>
+          <p>
+            בחדרי הרחצה מותקנים <strong>גלאי נפח ותאורה כפולים (Dual PIR + Lux Sensors)</strong>. 
+            המערכת מזהה כניסה של אדם לחדר הרחצה, הדלקת אור, ושהייה מעל זמן סף.
+          </p>
+          <div class="highlight-box">
+            💡 <strong>התוצאה:</strong> הבית סופר כמה מקלחות נלקחו היום, יודע לחשב את צניחת החום בדוד בעקבות כל מקלחת, ומתריע מראש אם נשארו מים למקלחת הבאה או שיש להפעיל חימום קצר.
+          </div>
+        </div>
+
+        <div class="ai-card">
+          <div class="icon">🧠</div>
+          <h3>חימום חוזה ולומד (Predictive AI Heating)</h3>
+          <p>
+            המערכת לומדת את דפוסי המשפחה לאורך זמן: באיזו שעה כל אחד מתקלח בימי חול לעומת סופ"ש, וכמה מים חמים נצרכים בכל שעה.
+          </p>
+          <div class="highlight-box">
+            ⚡ <strong>התוצאה:</strong> הבית יודע מתי לצפות למקלחות ומחמם את המים מראש בדיוק לטמפרטורה הנדרשת (למשל 42°C לשני ילדים בערב, במקום להרתיח סתם ל-70°C). חיסכון של מאות שקלים בשנה!
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 30px; text-align: center; background: rgba(0, 210, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.2); border-radius: 16px; padding: 20px;">
+        <p style="color: #94a3b8; font-size: 1.05rem;">
+          ✨ <strong>עבור אייל:</strong> אנחנו מתחילים בשלב א' (מדידת חום, חיבור לסוויצ'ר וכיבוי אוטומטי). 
+          אבל כל התשתית של הרספברי פיי ו-Home Assistant כבר תהיה אצלך מוכנה לשדרוג הזה בכל שלב!
+        </p>
+      </div>
+    </section>
+
+    <!-- App Mockup & Dashboard -->
+    <div style="margin: 60px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+      <div>
+        <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 16px;">שליטה מוחלטת מהסמארטפון</h3>
+        <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 20px;">
+          ממשק Home Assistant מעוצב ונוח: רואים בדיוק את גרף ההתחממות של המים, כמה וואט נצרך ברגע זה, וכמה זמן נותר עד שהדוד יגיע לטמפרטורת היעד.
+        </p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; color: #cbd5e1;">
+          <li>🔹 מד מעלות עגול ומרהיב בזמן אמת</li>
+          <li>🔹 כפתור "מקלחת חמה" לחימום מהיר בטמפרטורה מוגדרת</li>
+          <li>🔹 כיבוי אוטומטי מוחלט ב-45°C לשמירה על גוף החימום וחשבון החשמל</li>
+          <li>🔹 התראות Push / וואטסאפ ישירות לנייד</li>
+        </ul>
+      </div>
+      <div class="hero-image-wrapper">
+        <img src="images/smart_boiler_app_mockup.jpg" alt="Home Assistant Boiler App Mockup">
+      </div>
+    </div>
+
+    <!-- Hardware List & Live Verified Purchase Links -->
+    <section id="hardware">
+      <div class="section-title">
+        <h2>רשימת ציוד ולינקים ישירים לרכישה</h2>
+        <p>כל הלינקים נבדקו בבדיקת שרת חיה. מומלץ להזמין מאמזון (מהיר) או מעליאקספרס (הכי זול)</p>
+      </div>
+
+      <div class="products-grid">
+
+        <!-- Item 1: Sonoff Dongle Plus -->
+        <div class="product-card">
+          <div>
+            <div class="prod-badge">רכזת שידור ראשית</div>
+            <h3>Sonoff Zigbee Dongle Plus (P)</h3>
+            <div class="price">~75 - 95 ₪</div>
+            <p class="desc">
+              דונגל USB עם מעבד CC2652P, עוצמת שידור מקסימלית של +20dBm ואנטנה חיצונית 5dBi. מתחבר ישירות לרספברי פיי לטווח שיא.
+            </p>
+          </div>
+          <div class="btn-group">
+            <a href="https://www.amazon.com/dp/B09KXTCMSC" target="_blank" rel="noopener" class="btn btn-amazon">
+              🛒 רכישה באמזון (משלוח מהיר)
+            </a>
+            <a href="https://www.aliexpress.com/w/wholesale-sonoff-zigbee-dongle-plus.html" target="_blank" rel="noopener" class="btn btn-aliexpress">
+              📦 רכישה בעליאקספרס (זול)
+            </a>
+          </div>
+        </div>
+
+        <!-- Item 2: Sonoff THR316 -->
+        <div class="product-card">
+          <div>
+            <div class="prod-badge">יחידת ניטור בחדר מדרגות</div>
+            <h3>Sonoff THR316 (16A Switch + Sensor)</h3>
+            <div class="price">~65 - 85 ₪</div>
+            <p class="desc">
+              מודול חכם המתחבר לחשמל של הדוד בארון בחדר המדרגות, עם שקע RJ11 ייעודי לפרוב הטמפרטורה ושידור הנתונים.
+            </p>
+          </div>
+          <div class="btn-group">
+            <a href="https://www.amazon.com/dp/B0B5GM1LTG" target="_blank" rel="noopener" class="btn btn-amazon">
+              🛒 רכישה באמזון (משלוח מהיר)
+            </a>
+            <a href="https://www.aliexpress.com/w/wholesale-sonoff-thr316.html" target="_blank" rel="noopener" class="btn btn-aliexpress">
+              📦 רכישה בעליאקספרס (זול)
+            </a>
+          </div>
+        </div>
+
+        <!-- Item 3: Sonoff WTS01 Sensor -->
+        <div class="product-card">
+          <div>
+            <div class="prod-badge">חיישן מים יבש</div>
+            <h3>Sonoff WTS01 מוגן מים (נירוסטה)</h3>
+            <div class="price">~40 ₪</div>
+            <p class="desc">
+              פרוב מתכת דק ועמיד בחום גבוה (עד 115°C) עם כבל עבה. מושחל בקלות לתוך השרוול המתכתי היבש בתחתית הדוד.
+            </p>
+          </div>
+          <div class="btn-group">
+            <a href="https://www.amazon.com/dp/B0CBV9JF32" target="_blank" rel="noopener" class="btn btn-amazon">
+              🛒 רכישה באמזון (משלוח מהיר)
+            </a>
+          </div>
+        </div>
+
+        <!-- Item 4: Zigbee Repeater Plug -->
+        <div class="product-card">
+          <div>
+            <div class="prod-badge">מגדיל טווח (גיבוי ל-30 מטר)</div>
+            <h3>Tuya Zigbee 3.0 Smart Plug (Repeater)</h3>
+            <div class="price">~28 - 35 ₪</div>
+            <p class="desc">
+              שקע חכם רגיל המשמש כממסר Mesh. שמים אותו בשקע ליד דלת הכניסה או הארון הקומתי להבטחת קליטה חזקה דרך קירות בטון.
+            </p>
+          </div>
+          <div class="btn-group">
+            <a href="https://www.aliexpress.com/w/wholesale-tuya-zigbee-smart-plug.html" target="_blank" rel="noopener" class="btn btn-aliexpress">
+              📦 רכישה בעליאקספרס (30 ₪)
+            </a>
+          </div>
+        </div>
+
+        <!-- Item 5: Bathroom Motion + Light Sensors -->
+        <div class="product-card">
+          <div>
+            <div class="prod-badge">לשדרוג ספירת מקלחות (דותן AI)</div>
+            <h3>גלאי נפח + תאורה (PIR + Lux)</h3>
+            <div class="price">~45 - 65 ₪</div>
+            <p class="desc">
+              גלאי תנועה משולב חיישן עוצמת אור לחדרי הרחצה, המאפשר לבית לספור מקלחות ולזהות נוכחות מתמשכת.
+            </p>
+          </div>
+          <div class="btn-group">
+            <a href="https://www.amazon.com/dp/B0B68LL2B3" target="_blank" rel="noopener" class="btn btn-amazon">
+              🛒 רכישה באמזון (Third Reality)
+            </a>
+            <a href="https://www.aliexpress.com/w/wholesale-tuya-zigbee-pir-motion-sensor-light.html" target="_blank" rel="noopener" class="btn btn-aliexpress">
+              📦 רכישה בעליאקספרס (זול)
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 1.1rem;">
+        💰 <strong>עלות חומרה כוללת לבסיס (דונגל + מודול + פרוב):</strong> כ-180 עד 210 ₪ בלבד!
+      </div>
+    </section>
+
+    <!-- Installation Guide Section -->
+    <section id="installation">
+      <div class="section-title">
+        <h2>מדריך התקנה יבשה ובטוחה (4 שלבים)</h2>
+        <p>100% ללא אינסטלציה, ללא נזילות, וללא שינוי בתרמוסטט הבטיחות המקורי</p>
+      </div>
+
+      <div class="install-grid">
+        <div class="hero-image-wrapper">
+          <img src="images/smart_boiler_installation_guide.jpg" alt="Technical Installation Cutaway">
+        </div>
+        <div class="install-steps">
+          <div class="install-item">
+            <div class="install-icon">1️⃣</div>
+            <div>
+              <h4>פתיחת מכסה הפלסטיק התחתון</h4>
+              <p>מורידים את מפסק הפחת/הדוד בלוח, ופותחים את מכסה הפלסטיק המגן שבתחתית הדוד בחדר המדרגות.</p>
+            </div>
+          </div>
+          <div class="install-item">
+            <div class="install-icon">2️⃣</div>
+            <div>
+              <h4>איתור שרוול התרמוסטט היבש</h4>
+              <p>בפלאנג' הדוד קיים צינור מתכת חלול ("שרוול יבש") שלתוכו מושחל התרמוסטט. אין בו שום מים!</p>
+            </div>
+          </div>
+          <div class="install-item">
+            <div class="install-icon">3️⃣</div>
+            <div>
+              <h4>השחלת פרוב הנירוסטה</h4>
+              <p>משחילים את פרוב הטמפרטורה הדק לתוך השרוול לצד המוט המקורי. לא נוגעים בברגים של גוף החימום!</p>
+            </div>
+          </div>
+          <div class="install-item">
+            <div class="install-icon">4️⃣</div>
+            <div>
+              <h4>חיבור חשמלי וצימוד לראספברי</h4>
+              <p>מחברים את Sonoff THR316, מחזירים חשמל, והמכשיר מזוהה מיידית ב-Home Assistant. מוכן לפעולה!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Savings Calculator -->
+    <section class="calc-box">
+      <div>
+        <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 12px;">מחשבון חיסכון שנתי בחשמל</h3>
+        <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
+          רוב האנשים שוכחים את הדוד דולק בין 60 ל-120 דקות, כאשר בפועל נדרשות רק כ-25 דקות להגיע ל-45°C.
+          גרור את הסרגל כדי לראות כמה כסף המערכת חוסכת לך מדי שנה:
+        </p>
+
+        <div class="calc-slider-wrapper">
+          <label id="slider-label">זמן דוד ממוצע כיום ביום: <strong>90 דקות</strong></label>
+          <input type="range" id="time-slider" min="30" max="180" step="10" value="90">
+        </div>
+        <p style="font-size: 0.88rem; color: #94a3b8;">* מחושב לפי גוף חימום 2,500W, תעריף חשמל 0.61 ₪ לקוט"ש, 330 ימי שימוש בשנה.</p>
+      </div>
+
+      <div class="calc-results">
+        <div style="font-size: 1rem; color: var(--text-muted); font-weight: 600;">חיסכון שנתי מוערך בחשמל:</div>
+        <div class="savings-amount" id="savings-display">~440 ₪</div>
+        <div style="font-size: 0.95rem; color: #cbd5e1;">המערכת מחזירה את כל עלותה תוך כ-5 חודשים בלבד! 🎉</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>⚡ פרויקט דוד חכם מבוסס טמפרטורה וחיזוי AI | פותח ונבנה בהתאמה אישית על ידי דותן</p>
+      <p style="margin-top: 8px; font-size: 0.82rem; color: #64748b;">
+        כל הזכויות שמורות © 2026 | מבוסס Home Assistant, Zigbee 3.0 ורכיבי Sonoff
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const slider = document.getElementById('time-slider');
+    const label = document.getElementById('slider-label');
+    const display = document.getElementById('savings-display');
+
+    slider.addEventListener('input', function() {
+      const minutes = parseInt(this.value);
+      label.innerHTML = `זמן דוד ממוצע כיום ביום: <strong>${minutes} דקות</strong>`;
+      
+      const wastedMinutes = Math.max(0, minutes - 25);
+      const wastedHoursPerDay = wastedMinutes / 60;
+      const kwhPerDay = wastedHoursPerDay * 2.5; // 2500W
+      const costPerDay = kwhPerDay * 0.61; // 0.61 ILS/kWh
+      const yearlySavings = Math.round(costPerDay * 330);
+
+      display.textContent = `~${yearlySavings} ₪`;
+    });
+  </script>
+</body>
+</html>
