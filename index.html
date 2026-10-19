@@ -3,35 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Boiler | Intelligence meets warmth. מערכת דוד חכם מבוססת טמפרטורה</title>
+  <title>Smart Boiler AI | Intelligence Meets Warmth — Apple-Grade Spatial Experience</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Apple Gray & Green Palette */
-      --apple-bg: #000000;
-      --apple-bg-secondary: #0c0f0d;
-      --apple-card: rgba(22, 26, 24, 0.7);
-      --apple-card-hover: rgba(30, 36, 33, 0.85);
-      --apple-border: rgba(255, 255, 255, 0.08);
-      --apple-border-active: rgba(48, 209, 88, 0.35);
+      /* Apple & Nike Spatial Dark Green/Titanium Palette */
+      --bg-void: #050706;
+      --bg-surface: #0a0e0c;
+      --bg-surface-elevated: #111714;
+      --titanium-border: rgba(255, 255, 255, 0.08);
+      --titanium-border-hover: rgba(0, 240, 118, 0.35);
+      --glass-bg: rgba(18, 24, 21, 0.65);
+      --glass-highlight: rgba(255, 255, 255, 0.06);
       
-      /* Apple Signature Greens */
-      --green-primary: #30d158;
-      --green-emerald: #10b981;
-      --green-mint: #34d399;
-      --green-sage: #059669;
-      --green-glow: rgba(48, 209, 88, 0.22);
-      --green-subtle: rgba(48, 209, 88, 0.08);
-      
-      /* Apple Signature Grays & Titanium */
-      --gray-titanium: #161a18;
-      --gray-border: #2c322e;
-      --gray-text-main: #f5f5f7;
-      --gray-text-sub: #86868b;
-      --gray-text-muted: #6e6e73;
-      --gray-badge: rgba(255, 255, 255, 0.06);
+      /* Vibrant Apple Neon Emerald / Green Accents */
+      --neon-green: #00f076;
+      --apple-green: #30d158;
+      --emerald-dark: #059669;
+      --mint-glow: rgba(0, 240, 118, 0.25);
+      --mint-subtle: rgba(0, 240, 118, 0.08);
+
+      /* Typography Grays */
+      --text-pure: #ffffff;
+      --text-primary: #f5f5f7;
+      --text-secondary: #86868b;
+      --text-muted: #56565c;
     }
 
     * {
@@ -41,41 +39,88 @@
     }
 
     body {
-      font-family: 'Heebo', 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
-      background-color: var(--apple-bg);
-      color: var(--gray-text-main);
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      background-color: var(--bg-void);
+      color: var(--text-primary);
       line-height: 1.5;
       letter-spacing: -0.015em;
       overflow-x: hidden;
+      perspective: 1200px;
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(48, 209, 88, 0.07) 0%, transparent 50%),
-        radial-gradient(circle at 90% 40%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
-        radial-gradient(circle at 10% 70%, rgba(5, 150, 105, 0.03) 0%, transparent 40%);
+        radial-gradient(circle at 50% 0%, rgba(0, 240, 118, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 100% 30%, rgba(48, 209, 88, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 0% 70%, rgba(5, 150, 105, 0.06) 0%, transparent 50%);
       background-attachment: fixed;
     }
 
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 24px;
+    /* Ambient Spatial Light Orbs */
+    .spatial-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    /* Apple Navigation */
+    .orb-1 {
+      top: 15%;
+      left: 10%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(0, 240, 118, 0.15) 0%, transparent 70%);
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+
+    .orb-2 {
+      top: 55%;
+      right: 5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(5, 150, 105, 0.12) 0%, transparent 70%);
+      animation: floatOrb 18s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-80px) scale(1.15); }
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Apple Floating Glass Navigation */
     header {
       position: sticky;
-      top: 0;
+      top: 16px;
       z-index: 1000;
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      background: rgba(0, 0, 0, 0.8);
-      border-bottom: 1px solid var(--apple-border);
+      margin: 0 auto;
+      max-width: 1180px;
+      padding: 0 16px;
     }
 
     .nav-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 52px;
+      height: 58px;
+      padding: 0 24px;
+      border-radius: 30px;
+      background: rgba(12, 17, 14, 0.82);
+      backdrop-filter: blur(24px) saturate(190%);
+      -webkit-backdrop-filter: blur(24px) saturate(190%);
+      border: 1px solid var(--titanium-border);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-inner:hover {
+      border-color: rgba(0, 240, 118, 0.3);
+      box-shadow: 0 12px 45px rgba(0, 0, 0, 0.7), 0 0 20px var(--mint-subtle);
     }
 
     .logo {
@@ -83,644 +128,807 @@
       align-items: center;
       gap: 10px;
       font-size: 1.15rem;
-      font-weight: 700;
+      font-weight: 800;
       color: #fff;
       text-decoration: none;
+      letter-spacing: -0.02em;
     }
 
-    .logo-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--green-primary);
+    .logo-pulse {
+      width: 9px;
+      height: 9px;
+      background: var(--neon-green);
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--green-primary);
+      box-shadow: 0 0 12px var(--neon-green);
+      animation: pulseGlow 2.5s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px var(--neon-green); }
+      50% { transform: scale(1.3); opacity: 0.8; box-shadow: 0 0 22px var(--neon-green); }
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 26px;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--gray-text-sub);
+      color: var(--text-secondary);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 500;
       transition: color 0.2s;
     }
 
     .nav-links a:hover {
-      color: var(--green-primary);
+      color: var(--neon-green);
     }
 
-    .nav-cta {
-      background: rgba(48, 209, 88, 0.15);
-      border: 1px solid rgba(48, 209, 88, 0.3);
-      color: var(--green-primary);
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 5px 14px;
+    .nav-btn {
+      background: linear-gradient(135deg, var(--neon-green), #059669);
+      color: #000;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 7px 18px;
       border-radius: 20px;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(0, 240, 118, 0.3);
     }
 
-    .nav-cta:hover {
-      background: var(--green-primary);
-      color: #000;
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 240, 118, 0.5);
     }
 
-    /* Hero Section */
-    .hero {
-      padding: 90px 0 60px;
-      text-align: center;
+    /* Infinite Nike-style Moving Marquee Ticker */
+    .ticker-wrapper {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      overflow: hidden;
+      background: rgba(10, 14, 12, 0.7);
+      border-top: 1px solid var(--titanium-border);
+      border-bottom: 1px solid var(--titanium-border);
+      padding: 14px 0;
+      margin-top: 50px;
+      position: relative;
     }
 
-    .hero-eyebrow {
-      display: inline-flex;
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: tickerScroll 32s linear infinite;
+    }
+
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes tickerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50%); }
+    }
+
+    .ticker-item {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      gap: 12px;
+      padding: 0 32px;
+      font-size: 0.88rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--green-primary);
-      margin-bottom: 16px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .ticker-item span.accent {
+      color: var(--neon-green);
+    }
+
+    .ticker-item .sep {
+      width: 4px;
+      height: 4px;
+      background: var(--neon-green);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--neon-green);
+    }
+
+    /* Hero Section (Spatial Depth & Floating Widgets) */
+    .hero {
+      padding: 90px 0 50px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(0, 240, 118, 0.1);
+      border: 1px solid rgba(0, 240, 118, 0.28);
+      border-radius: 30px;
+      color: var(--neon-green);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 24px;
+      box-shadow: 0 0 16px rgba(0, 240, 118, 0.15);
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-size: 4.6rem;
       font-weight: 900;
-      line-height: 1.08;
-      letter-spacing: -0.035em;
-      margin-bottom: 20px;
-      background: linear-gradient(180deg, #FFFFFF 30%, #86868b 100%);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 22px;
+      background: linear-gradient(180deg, #FFFFFF 20%, #a1a1a6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero h1 span.green {
-      background: linear-gradient(135deg, #30d158 0%, #10b981 100%);
+    .hero h1 span.green-gradient {
+      background: linear-gradient(135deg, #00f076 0%, #10b981 50%, #34d399 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero-sub {
       font-size: 1.35rem;
-      color: var(--gray-text-sub);
-      max-width: 720px;
-      margin: 0 auto 36px;
+      color: var(--text-secondary);
+      max-width: 760px;
+      margin: 0 auto 40px;
       font-weight: 400;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
-    .hero-badges-row {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 48px;
-    }
-
-    .apple-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--apple-card);
-      border: 1px solid var(--apple-border);
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--gray-text-main);
-    }
-
-    .apple-pill .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--green-primary);
-      border-radius: 50%;
-    }
-
-    .hero-visual {
+    /* Spatial Canvas Container with Floating Overlays */
+    .spatial-stage {
       position: relative;
-      max-width: 960px;
+      max-width: 1040px;
       margin: 0 auto;
-      border-radius: 28px;
-      overflow: hidden;
-      border: 1px solid var(--apple-border);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 50px var(--green-glow);
+      border-radius: 32px;
+      padding: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9), 0 0 60px rgba(0, 240, 118, 0.18);
     }
 
-    .hero-visual img {
+    .spatial-screen {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid var(--titanium-border);
+      background: #000;
+    }
+
+    .spatial-screen img {
       width: 100%;
       height: auto;
       display: block;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .hero-visual:hover img {
-      transform: scale(1.015);
+    .spatial-stage:hover .spatial-screen img {
+      transform: scale(1.02);
     }
 
-    /* Section Styling */
-    section {
-      padding: 70px 0;
+    /* Floating UI Badges that hover over the 3D Stage */
+    .floating-widget {
+      position: absolute;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(14, 20, 17, 0.85);
+      border: 1px solid rgba(0, 240, 118, 0.35);
+      border-radius: 20px;
+      padding: 14px 20px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 118, 0.2);
+      z-index: 10;
+      animation: floatWidget 5s ease-in-out infinite;
+      text-align: right;
     }
 
-    .section-eyebrow {
+    .widget-left {
+      top: 15%;
+      left: -20px;
+      animation-delay: 0s;
+    }
+
+    .widget-right {
+      bottom: 18%;
+      right: -20px;
+      animation-delay: 2.5s;
+    }
+
+    @keyframes floatWidget {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .widget-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--neon-green);
+      margin-bottom: 2px;
+    }
+
+    .widget-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .widget-desc {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    /* 3D Bento Grid (Apple Style Multi-Layered Cards) */
+    .section-header {
+      text-align: center;
+      margin: 100px 0 50px;
+    }
+
+    .section-tag {
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--green-primary);
+      color: var(--neon-green);
       margin-bottom: 8px;
-      text-align: center;
     }
 
-    .section-heading {
-      font-size: 2.8rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      text-align: center;
-      margin-bottom: 16px;
-      color: #fff;
-    }
-
-    .section-desc {
-      font-size: 1.15rem;
-      color: var(--gray-text-sub);
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto 50px;
-    }
-
-    /* Apple Bento Grid */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .bento-card {
-      background: var(--apple-card);
-      border: 1px solid var(--apple-border);
-      border-radius: 24px;
-      padding: 36px;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .bento-card:hover {
-      background: var(--apple-card-hover);
-      border-color: var(--apple-border-active);
-      transform: translateY(-2px);
-    }
-
-    .bento-card.col-8 { grid-column: span 8; }
-    .bento-card.col-4 { grid-column: span 4; }
-    .bento-card.col-6 { grid-column: span 6; }
-    .bento-card.col-12 { grid-column: span 12; }
-
-    .bento-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--green-primary);
-      margin-bottom: 12px;
-    }
-
-    .bento-card h3 {
-      font-size: 1.7rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-
-    .bento-card p {
-      font-size: 1rem;
-      color: var(--gray-text-sub);
-      line-height: 1.6;
-    }
-
-    .bento-metric {
-      margin-top: 24px;
-      font-size: 3.5rem;
+    .section-title {
+      font-size: 3rem;
       font-weight: 900;
-      letter-spacing: -0.04em;
-      color: var(--green-primary);
-      line-height: 1;
-    }
-
-    .bento-metric-sub {
-      font-size: 0.9rem;
-      color: var(--gray-text-muted);
-      margin-top: 4px;
-    }
-
-    /* Technical Investigation & Paths */
-    .investigation-box {
-      background: linear-gradient(135deg, rgba(22, 26, 24, 0.9), rgba(12, 15, 13, 0.9));
-      border: 1px solid var(--apple-border);
-      border-radius: 28px;
-      padding: 40px;
-      margin: 40px 0;
-    }
-
-    .paths-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 30px;
-    }
-
-    .path-card {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--apple-border);
-      border-radius: 20px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: border 0.3s;
-    }
-
-    .path-card.recommended {
-      border-color: rgba(48, 209, 88, 0.4);
-      box-shadow: 0 0 25px rgba(48, 209, 88, 0.08);
-    }
-
-    .path-badge {
-      display: inline-block;
-      align-self: flex-start;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
-      background: rgba(48, 209, 88, 0.15);
-      color: var(--green-primary);
+      letter-spacing: -0.03em;
+      color: #fff;
       margin-bottom: 14px;
     }
 
-    .path-card h4 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 8px;
+    .section-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto;
     }
 
-    .path-card p {
-      color: var(--gray-text-sub);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 16px;
+    .bento-3d-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
     }
 
-    .path-feature-list {
-      list-style: none;
+    .card-3d {
+      background: var(--glass-bg);
+      border: 1px solid var(--titanium-border);
+      border-radius: 28px;
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      font-size: 0.88rem;
-      color: #cbd5e1;
+      justify-content: space-between;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 var(--glass-highlight);
     }
 
-    .path-feature-list li {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .card-3d:hover {
+      border-color: var(--titanium-border-hover);
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 35px var(--mint-subtle);
     }
 
-    /* Apple Alert Disclaimer */
-    .apple-disclaimer {
-      background: rgba(22, 26, 24, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-right: 4px solid var(--green-primary);
-      border-radius: 20px;
-      padding: 30px;
-      margin: 50px 0;
-    }
+    .col-8 { grid-column: span 8; }
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .col-12 { grid-column: span 12; }
 
-    .disclaimer-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .card-3d h3 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
       color: #fff;
-      font-size: 1.25rem;
-      font-weight: 700;
       margin-bottom: 12px;
     }
 
-    .disclaimer-content {
-      color: var(--gray-text-sub);
-      font-size: 1rem;
-      line-height: 1.7;
+    .card-3d p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
     }
 
-    .disclaimer-content strong {
+    .stat-hero {
+      font-size: 4rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--neon-green);
+      line-height: 1;
+      margin-top: 24px;
+      text-shadow: 0 0 30px rgba(0, 240, 118, 0.3);
+    }
+
+    .stat-note {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Spotlight Section: MOES 24GHz mmWave Radar & Light Sensor */
+    .moes-spotlight {
+      background: radial-gradient(circle at 50% 0%, rgba(0, 240, 118, 0.1) 0%, rgba(14, 20, 17, 0.8) 70%);
+      border: 1px solid rgba(0, 240, 118, 0.35);
+      border-radius: 36px;
+      padding: 56px;
+      margin: 80px 0;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 240, 118, 0.15);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .moes-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(0, 240, 118, 0.18);
+      border: 1px solid var(--neon-green);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--neon-green);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .moes-spotlight h2 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .moes-spotlight p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .radar-vs-pir {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .radar-box {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--titanium-border);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .radar-box.win {
+      border-color: rgba(0, 240, 118, 0.4);
+      background: rgba(0, 240, 118, 0.04);
+    }
+
+    .radar-box h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
       color: #fff;
     }
 
-    /* Products Section (Apple Store Grid) */
-    .products-grid {
+    .radar-box p {
+      font-size: 0.88rem;
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Live Interactive Boiler Simulator Widget */
+    .simulator-stage {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--titanium-border);
+      border-radius: 32px;
+      padding: 44px;
+      margin: 80px 0;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .gauge-wrapper {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-svg {
+      transform: rotate(-90deg);
+      width: 280px;
+      height: 280px;
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 14;
+    }
+
+    .gauge-progress {
+      fill: none;
+      stroke: var(--neon-green);
+      stroke-width: 14;
+      stroke-linecap: round;
+      stroke-dasharray: 754;
+      stroke-dashoffset: 280;
+      transition: stroke-dashoffset 1s ease, stroke 0.5s ease;
+      filter: drop-shadow(0 0 12px var(--neon-green));
+    }
+
+    .gauge-center-content {
+      position: absolute;
+      text-align: center;
+    }
+
+    .gauge-temp {
+      font-size: 4rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .gauge-status {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--neon-green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .sim-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sim-btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .sim-btn {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--titanium-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .sim-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .sim-btn.active {
+      background: var(--neon-green);
+      color: #000;
+      border-color: var(--neon-green);
+      box-shadow: 0 0 20px rgba(0, 240, 118, 0.4);
+    }
+
+    /* Store Grid (Apple Store Look & Verified Buy Links) */
+    .store-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
       margin-top: 40px;
     }
 
-    .product-box {
-      background: var(--apple-card);
-      border: 1px solid var(--apple-border);
-      border-radius: 24px;
-      padding: 30px;
+    .product-card-apple {
+      background: var(--bg-surface);
+      border: 1px solid var(--titanium-border);
+      border-radius: 26px;
+      padding: 32px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.3s ease;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     }
 
-    .product-box:hover {
-      border-color: var(--apple-border-active);
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    .product-card-apple:hover {
+      border-color: var(--titanium-border-hover);
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--mint-subtle);
     }
 
-    .prod-category {
+    .prod-eyebrow {
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--green-primary);
+      letter-spacing: 0.06em;
+      color: var(--neon-green);
       margin-bottom: 8px;
     }
 
-    .product-box h4 {
-      font-size: 1.35rem;
-      font-weight: 700;
+    .product-card-apple h4 {
+      font-size: 1.4rem;
+      font-weight: 800;
       color: #fff;
       margin-bottom: 6px;
     }
 
-    .product-box .price-tag {
-      font-size: 1.45rem;
-      font-weight: 800;
-      color: var(--green-primary);
-      margin-bottom: 14px;
+    .prod-price {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--neon-green);
       letter-spacing: -0.02em;
+      margin-bottom: 14px;
     }
 
-    .product-box .desc {
-      color: var(--gray-text-sub);
-      font-size: 0.92rem;
+    .prod-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
       line-height: 1.6;
       margin-bottom: 24px;
       flex-grow: 1;
     }
 
-    .store-btn-group {
+    .buy-actions {
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
 
-    .apple-btn {
-      display: inline-flex;
+    .btn-apple {
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 18px;
+      padding: 12px 20px;
       border-radius: 14px;
       text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.9rem;
+      font-weight: 700;
       transition: all 0.2s ease;
       cursor: pointer;
     }
 
-    .apple-btn-primary {
-      background: var(--green-primary);
+    .btn-apple-green {
+      background: var(--neon-green);
       color: #000;
+      box-shadow: 0 4px 15px rgba(0, 240, 118, 0.25);
     }
 
-    .apple-btn-primary:hover {
-      background: #3ee268;
-      box-shadow: 0 0 16px var(--green-glow);
+    .btn-apple-green:hover {
+      background: #39ff8e;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(0, 240, 118, 0.45);
     }
 
-    .apple-btn-secondary {
+    .btn-apple-dark {
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--apple-border);
+      border: 1px solid var(--titanium-border);
       color: #fff;
     }
 
-    .apple-btn-secondary:hover {
+    .btn-apple-dark:hover {
       background: rgba(255, 255, 255, 0.12);
       border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* Installation Cutaway Showcase */
-    .install-showcase {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
+    /* Disclaimer Section */
+    .apple-alert-box {
+      background: rgba(14, 20, 17, 0.7);
+      border: 1px solid rgba(0, 240, 118, 0.3);
+      border-right: 4px solid var(--neon-green);
+      border-radius: 22px;
+      padding: 32px;
       margin: 60px 0;
     }
 
-    .install-steps-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .step-item {
-      display: flex;
-      gap: 16px;
-      background: var(--apple-card);
-      border: 1px solid var(--apple-border);
-      border-radius: 18px;
-      padding: 22px;
-      transition: border 0.3s;
-    }
-
-    .step-item:hover {
-      border-color: var(--apple-border-active);
-    }
-
-    .step-num-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(48, 209, 88, 0.15);
-      border: 1px solid rgba(48, 209, 88, 0.4);
-      color: var(--green-primary);
+    .apple-alert-title {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
+      color: #fff;
+      font-size: 1.3rem;
       font-weight: 800;
-      font-size: 0.88rem;
-      flex-shrink: 0;
-    }
-
-    .step-item h5 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-
-    .step-item p {
-      font-size: 0.92rem;
-      color: var(--gray-text-sub);
-      line-height: 1.5;
-    }
-
-    /* Savings Slider Widget */
-    .apple-calc {
-      background: linear-gradient(180deg, rgba(22, 26, 24, 0.8) 0%, rgba(12, 15, 13, 0.95) 100%);
-      border: 1px solid var(--apple-border);
-      border-radius: 28px;
-      padding: 48px;
-      margin: 60px 0;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .calc-slider-container {
-      margin: 28px 0;
-    }
-
-    .calc-slider-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.05rem;
-      color: #fff;
       margin-bottom: 12px;
     }
 
-    .calc-slider-label strong {
-      color: var(--green-primary);
-      font-size: 1.2rem;
+    .apple-alert-body {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.7;
     }
 
-    input[type=range] {
-      width: 100%;
-      height: 6px;
-      background: #2c322e;
-      border-radius: 3px;
-      outline: none;
-      -webkit-appearance: none;
+    .apple-alert-body strong {
+      color: #fff;
     }
 
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
+    /* Installation 3D Cutaway Showcase */
+    .install-stage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin: 70px 0;
+    }
+
+    .step-box-apple {
+      background: var(--bg-surface);
+      border: 1px solid var(--titanium-border);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 16px;
+      transition: all 0.3s;
+    }
+
+    .step-box-apple:hover {
+      border-color: rgba(0, 240, 118, 0.3);
+      transform: translateX(-4px);
+    }
+
+    .step-num-apple {
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: #fff;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(48, 209, 88, 0.5);
-      border: 2px solid var(--green-primary);
-    }
-
-    .calc-display-card {
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--apple-border);
-      border-radius: 22px;
-      padding: 32px;
-      text-align: center;
-    }
-
-    .calc-display-val {
-      font-size: 3.6rem;
+      background: rgba(0, 240, 118, 0.15);
+      border: 1px solid rgba(0, 240, 118, 0.4);
+      color: var(--neon-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: 900;
-      color: var(--green-primary);
-      letter-spacing: -0.04em;
-      margin: 8px 0;
+      font-size: 0.9rem;
+      flex-shrink: 0;
     }
 
     /* Footer */
     footer {
-      border-top: 1px solid var(--apple-border);
-      padding: 60px 0 30px;
+      border-top: 1px solid var(--titanium-border);
+      padding: 70px 0 40px;
       text-align: center;
-      color: var(--gray-text-muted);
-      font-size: 0.85rem;
-      line-height: 1.8;
+      color: var(--text-muted);
+      font-size: 0.88rem;
     }
 
-    @media (max-width: 900px) {
-      .hero h1 { font-size: 2.8rem; }
-      .bento-card.col-8, .bento-card.col-4, .bento-card.col-6 { grid-column: span 12; }
-      .paths-grid, .products-grid, .install-showcase, .apple-calc { grid-template-columns: 1fr; }
+    @media (max-width: 960px) {
+      .hero h1 { font-size: 3rem; }
+      .col-8, .col-4, .col-6 { grid-column: span 12; }
+      .moes-spotlight, .simulator-stage, .install-stage, .store-grid { grid-template-columns: 1fr; }
+      .floating-widget { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Apple Minimal Sticky Nav -->
+  <!-- Background Spatial Glows -->
+  <div class="spatial-orb orb-1"></div>
+  <div class="spatial-orb orb-2"></div>
+
+  <!-- Apple Glass Floating Nav -->
   <header>
-    <div class="container nav-inner">
+    <div class="nav-inner">
       <a href="#" class="logo">
-        <span class="logo-dot"></span>
+        <span class="logo-pulse"></span>
         <span>Smart Boiler</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#architecture">איך זה עובד</a></li>
-        <li><a href="#hardware-paths">אפשרויות חומרה</a></li>
-        <li><a href="#shower-ai">הבינה של דותן</a></li>
-        <li><a href="#store">לינקים לרכישה</a></li>
+        <li><a href="#spatial-arch">איך זה עובד</a></li>
+        <li><a href="#moes-radar">גלאי MOES 24GHz</a></li>
+        <li><a href="#simulator">סימולטור חי</a></li>
+        <li><a href="#store">רכישה ישירה</a></li>
         <li><a href="#installation">התקנה יבשה</a></li>
       </ul>
-      <a href="#store" class="nav-cta">מפרט רכישה</a>
+      <a href="#store" class="nav-btn">מפרט רכישה</a>
     </div>
   </header>
 
+  <!-- Continuous Infinite Marquee Ticker (Nike / Apple Style) -->
+  <div class="ticker-wrapper">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="accent">45°C</span> כיבוי אוטומטי חכם <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">MOES 24GHz</span> רדאר נוכחות נשימה <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">ZIGBEE 3.0 MESH</span> חודר 30 מטר בטון <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">0% מגע במים</span> התקנה יבשה בשרוול <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">הסוויצ'ר הקיים</span> נשאר פעיל 100% <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">AI SHOWER</span> חיזוי שעות מקלחת <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">HOME ASSISTANT</span> ללא תלות בענן <span class="sep"></span></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="ticker-item"><span class="accent">45°C</span> כיבוי אוטומטי חכם <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">MOES 24GHz</span> רדאר נוכחות נשימה <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">ZIGBEE 3.0 MESH</span> חודר 30 מטר בטון <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">0% מגע במים</span> התקנה יבשה בשרוול <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">הסוויצ'ר הקיים</span> נשאר פעיל 100% <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">AI SHOWER</span> חיזוי שעות מקלחת <span class="sep"></span></div>
+      <div class="ticker-item"><span class="accent">HOME ASSISTANT</span> ללא תלות בענן <span class="sep"></span></div>
+    </div>
+  </div>
+
   <div class="container">
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Spatial Depth & Kinetic Floating Overlays) -->
     <section class="hero">
-      <div class="hero-eyebrow">
-        <span>⚡ מערכת דוד חכם מבוססת טמפרטורה</span>
+      <div class="hero-badge-tag">
+        <span>⚡ ARCHITECTURE 2026 • SPATIAL SMART HOME</span>
       </div>
-      <h1>חכם עד המעלה האחרונה.<br><span class="green">בלי להחליף את הסוויצ'ר.</span></h1>
+      <h1>הדוד החכם הבא שלכם.<br><span class="green-gradient">חישת מעלות. בינת מקלחות.</span></h1>
       <p class="hero-sub">
         מדידת חום המים בזמן אמת, כיבוי אוטומטי מוחלט ב-45°C, וחיבור לתשתית Home Assistant על גבי רספברי פיי.
         שומרים על מפסק הסוויצ'ר הקיים בבית – בלי לגעת באינסטלציית המים ובלי להשאיר את הדוד דולק שעות סתם.
       </p>
 
-      <div class="hero-badges-row">
-        <div class="apple-pill"><span class="dot"></span> 0% מגע במים (התקנה יבשה לחלוטין)</div>
-        <div class="apple-pill"><span class="dot"></span> הסוויצ'ר הקיים ממשיך לשלוט בחשמל</div>
-        <div class="apple-pill"><span class="dot"></span> תרמוסטט בטיחות מקורי נשאר פעיל 100%</div>
-        <div class="apple-pill"><span class="dot"></span> עלות רכיבים: כ-180 עד 210 ₪ בלבד</div>
-      </div>
+      <!-- 3D Spatial Canvas with Floating Widgets -->
+      <div class="spatial-stage">
+        <!-- Floating Widget Left: Temp Stream -->
+        <div class="floating-widget widget-left">
+          <div class="widget-label">טמפרטורת מים בדוד כרגע</div>
+          <div class="widget-val">
+            <span style="color: var(--neon-green);">46.5°C</span>
+            <span style="font-size: 0.85rem; color: #34d399;">● מוכן למקלחת</span>
+          </div>
+          <div class="widget-desc">הסוויצ'ר נותק אוטומטית לפני 4 דק'</div>
+        </div>
 
-      <div class="hero-visual">
-        <img src="images/smart_boiler_hero.jpg" alt="Smart Boiler Hero Concept">
+        <!-- Floating Widget Right: Zigbee Mesh -->
+        <div class="floating-widget widget-right">
+          <div class="widget-label">תקשורת Zigbee Mesh</div>
+          <div class="widget-val">
+            <span style="color: #fff;">+20 dBm</span>
+            <span style="font-size: 0.85rem; color: var(--neon-green);">חודר בטון מזוין</span>
+          </div>
+          <div class="widget-desc">טווח 30 מטר לארון חדר מדרגות</div>
+        </div>
+
+        <div class="spatial-screen">
+          <img src="images/smart_boiler_hero.jpg" alt="Smart Boiler Spatial Concept">
+        </div>
       </div>
     </section>
 
     <!-- Field & RF Disclaimer (Apple Clean Alert Style) -->
-    <div class="apple-disclaimer" id="disclaimer">
-      <div class="disclaimer-head">
+    <div class="apple-alert-box" id="disclaimer">
+      <div class="apple-alert-title">
         <span>⚠️</span>
         <h4>גילוי נאות הנדסי ותנאי שטח: ללא הבטחות עיוורות</h4>
       </div>
-      <div class="disclaimer-content">
+      <div class="apple-alert-body">
         <p>
           <strong>חשוב להבין:</strong> הדוד של אייל ממוקם בחדר מדרגות במרחק של כ-<strong>30 מטרים</strong> מהדירה, עם קירות בטון מזוין ודלתות אש בדרך. 
           מכיוון שאנחנו <strong>לא מכירים את תוואי השטח המדויק ואת רמת הניחות (RF Attenuation)</strong> של הבניין – <strong>לא ניתן להבטיח מראש קליטה חלקה בחיבור ישיר בלבד!</strong>
@@ -731,402 +939,384 @@
       </div>
     </div>
 
-    <!-- Bento Grid Section -->
-    <section id="architecture">
-      <div class="section-eyebrow">ארכיטקטורה הנדסית</div>
-      <h2 class="section-heading">פשוט. אלגנטי. בטוח.</h2>
-      <p class="section-desc">הסוויצ'ר הקיים בבית ממשיך לפעול כרגיל. כל מה שנוסף הוא עין דיגיטלית חכמה שמודדת את המים ומכבה אותו בזמן.</p>
+    <!-- 3D Bento Grid: The Spatial Architecture -->
+    <section id="spatial-arch">
+      <div class="section-header">
+        <div class="section-tag">שכבות המערכת</div>
+        <h2 class="section-title">ארכיטקטורה רב-שכבתית</h2>
+        <p class="section-subtitle">שילוב מדויק בין מודול מדידה בארון הדוד, ממסר רדיו חודר בטון, ומוח Home Assistant מקומי בבית.</p>
+      </div>
 
-      <div class="bento-grid">
+      <div class="bento-3d-grid">
         <!-- Bento 1 -->
-        <div class="bento-card col-8">
+        <div class="card-3d col-8">
           <div>
-            <div class="bento-tag">שליטה ללא הפרעה</div>
-            <h3>הסוויצ'ר ממשיך לשלוט ב-220V</h3>
+            <div class="section-tag">שכבת שליטה 220V</div>
+            <h3>הסוויצ'ר הקיים נשאר מלך הבית</h3>
             <p>
-              לא מחליפים שום מפסק בלוח החשמל ולא נוגעים בחיווט הפנימי של הדירה. הסוויצ'ר הקיים של אייל ממשיך להזרים חשמל לגוף החימום, אך מנוהל אוטומטית ע"י Home Assistant שמכבה אותו בדיוק ב-45°C.
+              לא מחליפים שום מפסק בלוח החשמל ולא נוגעים בחיווט הפנימי של הדירה. הסוויצ'ר הקיים של אייל ממשיך להזרים חשמל לגוף החימום, אך מנוהל אוטומטית ע"י Home Assistant שמכבה אותו בדיוק כשהמים מגיעים ל-45°C.
             </p>
           </div>
-          <div class="bento-metric">45°C</div>
-          <div class="bento-metric-sub">טמפרטורת יעד למקלחת מושלמת (כיבוי אוטומטי מוחלט)</div>
+          <div class="stat-hero">45°C</div>
+          <div class="stat-note">כיבוי אוטומטי מוחלט — מונע חימום יתר ושומר על גוף החימום</div>
         </div>
 
         <!-- Bento 2 -->
-        <div class="bento-card col-4">
+        <div class="card-3d col-4">
           <div>
-            <div class="bento-tag">אפס אינסטלציה</div>
-            <h3>שרוול יבש</h3>
+            <div class="section-tag">שכבה תרמית יבשה</div>
+            <h3>שרוול תרמוסטט</h3>
             <p>
               פרוב הנירוסטה מושחל ישירות לתוך השרוול המתכתי הקיים בפלאנג' של הדוד. אין שום מגע במים ואפס סכנת נזילות.
             </p>
           </div>
-          <div class="bento-metric">0%</div>
-          <div class="bento-metric-sub">מגע במים או בצנרת</div>
+          <div class="stat-hero">0%</div>
+          <div class="stat-note">מגע במים או אינסטלציה</div>
         </div>
 
         <!-- Bento 3 -->
-        <div class="bento-card col-4">
+        <div class="card-3d col-4">
           <div>
-            <div class="bento-tag">תקשורת אלחוטית</div>
-            <h3>Zigbee 3.0 Mesh</h3>
+            <div class="section-tag">שכבת שידור RF</div>
+            <h3>+20dBm זיגבי חודר קירות</h3>
             <p>
-              דונגל Sonoff Plus עם אנטנה 5dBi בעוצמת שידור מקסימלית של +20dBm לחדירת קירות בטון, עם אפשרות לממסר פשוט ב-30 ₪.
+              דונגל Sonoff Plus עם מגבר חומרה פנימי ואנטנה חיצונית 5dBi, מתחבר לראספברי פיי בבית וקולט את ארון המדרגות.
             </p>
           </div>
-          <div class="bento-metric">+20dBm</div>
-          <div class="bento-metric-sub">עוצמת שידור מקסימלית</div>
+          <div class="stat-hero">30m</div>
+          <div class="stat-note">טווח כיסוי בטון עם אפשרות לממסר 30 ₪</div>
         </div>
 
         <!-- Bento 4 -->
-        <div class="bento-card col-8">
+        <div class="card-3d col-8">
           <div>
-            <div class="bento-tag">בטיחות כפולה</div>
+            <div class="section-tag">שכבת בטיחות חומרה</div>
             <h3>התרמוסטט המכני המקורי נשאר פעיל 100%</h3>
             <p>
               חוק בל יעבור בבית חכם: לא מבטלים הגנות חומרה! מוט התרמוסטט המקורי של הדוד נשאר מחובר בטור לגוף החימום וינתק את החשמל במקרה חירום (65°C-70°C). המערכת החכמה פועלת כרובד ניהול עליון לחיסכון ונוחות.
             </p>
           </div>
-          <div class="bento-metric">100%</div>
-          <div class="bento-metric-sub">הגנת חומרה מכנית עצמאית</div>
+          <div class="stat-hero">100%</div>
+          <div class="stat-note">הגנת חומרה מכנית בלתי תלויה</div>
         </div>
       </div>
     </section>
 
-    <!-- Deep Technical Investigation: The 2 Hardware Paths -->
-    <section id="hardware-paths" class="investigation-box">
-      <div class="section-eyebrow">תחקיר הנדסי מעמיק עבור אייל</div>
-      <h2 class="section-heading" style="font-size: 2.3rem;">שני מסלולי חומרה לבחירה בדוד</h2>
-      <p class="section-desc" style="margin-bottom: 25px;">
-        כאשר הסוויצ'ר בבית מכובה, אין מתח 220V בדוד בחדר המדרגות. להלן שתי התצורות שנבדקו ומאומתות לסטאפ של אייל:
-      </p>
-
-      <div class="paths-grid">
-        <!-- Path A -->
-        <div class="path-card recommended">
-          <div>
-            <span class="path-badge">הכי מומלץ • 24/7 ללא חיווט</span>
-            <h4>מסלול א': חיישן סוללה ייעודי עם פרוב</h4>
-            <p>
-              חיישן Zigbee הפועל על 2 סוללות AAA (מחזיקות כ-18 חודשים) וממנו יוצא כבל עם פרוב נירוסטה לשרוול הדוד.
-            </p>
-            <ul class="path-feature-list">
-              <li>✨ <strong>מדידה רציפה 24/7:</strong> יודעים אם יש מים חמים מדוד השמש עוד לפני שהסוויצ'ר נדלק!</li>
-              <li>⚡ <strong>אפס עבודת חשמל:</strong> פשוט מצמידים במגנט/דבק לארון הדוד ומשחילים את הפרוב.</li>
-              <li>🔋 סוללות רגילות, התראה בטלפון כשהסוללה יורדת מ-20%.</li>
-            </ul>
-          </div>
-          <div style="margin-top: 20px;">
-            <a href="https://www.aliexpress.com/w/wholesale-zigbee-temperature-sensor-probe.html" target="_blank" rel="noopener" class="apple-btn apple-btn-primary" style="width: 100%;">
-              רכישת חיישן סוללה עם פרוב (~45 ₪)
-            </a>
-          </div>
-        </div>
-
-        <!-- Path B -->
-        <div class="path-card">
-          <div>
-            <span class="path-badge" style="background: rgba(255,255,255,0.08); color: #fff;">חיבור מתח 220V קבוע</span>
-            <h4>מסלול ב': מודול Sonoff THR316 + פרוב WTS01</h4>
-            <p>
-              מודול חכם המתחבר ל-220V בארון הדוד בחדר המדרגות, עם שקע ייעודי לפרוב הנירוסטה Sonoff WTS01.
-            </p>
-            <ul class="path-feature-list">
-              <li>🔌 דורש שקע שירות או קו 220V קבוע בארון חדר המדרגות.</li>
-              <li>⏱️ אם מחובר אחרי הסוויצ'ר: מודד טמפרטורה רק בזמן שהסוויצ'ר דולק (עולה תוך 3 שניות ומכבה ב-45°C).</li>
-              <li>💪 רכיב חזק במיוחד, יכול לשמש בעתיד גם כמפסק גיבוי.</li>
-            </ul>
-          </div>
-          <div style="margin-top: 20px;">
-            <a href="https://www.amazon.com/dp/B0B5GM1LTG" target="_blank" rel="noopener" class="apple-btn apple-btn-secondary" style="width: 100%;">
-              רכישת Sonoff THR316 באמזון (~85 ₪)
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Dotan's Shower AI Section -->
-    <section id="shower-ai">
-      <div class="section-eyebrow">המערכת המלאה שפותחה אצל דותן</div>
-      <h2 class="section-heading">הרבה מעבר למדחום רגיל</h2>
-      <p class="section-desc">
-        אצל אייל אנחנו מתחילים משלב א' (מדידת חום וכיבוי אוטומטי). אבל תשתית ה-Home Assistant של דותן כוללת מערך בינה מלאכותית שלם למקלחות שכבר עובד בשטח:
-      </p>
-
-      <div class="bento-grid">
-        <div class="bento-card col-6">
-          <div class="bento-tag">חיישני נפח ואור כפולים (PIR + LUX)</div>
-          <h3>ספירת מקלחות אוטומטית</h3>
-          <p>
-            בחדרי הרחצה מותקנים שני גלאי נוכחות ותאורה. המערכת מזהה אדם שנכנס, מדליק אור, ושוהה במקלחת במקביל לצניחת חום המים בדוד.
-          </p>
-          <p style="margin-top: 12px; color: var(--green-mint);">
-            💡 <strong>התוצאה:</strong> הבית סופר כמה מקלחות נלקחו היום, ומחשב בדיוק האם נותרו מספיק מים חמים למקלחת הבאה או שיש להפעיל חימום קצר.
-          </p>
-        </div>
-
-        <div class="bento-card col-6">
-          <div class="bento-tag">למידת מכונה והרגלי משפחה</div>
-          <h3>חימום חוזה ולומד (Predictive Heating)</h3>
-          <p>
-            המערכת לומדת מתי כל אחד מבני הבית מתקלח בימי חול לעומת סופ"ש, וכמה מים נצרכים. 
-          </p>
-          <p style="margin-top: 12px; color: var(--green-mint);">
-            ⚡ <strong>התוצאה:</strong> הבית צופה מראש ומחמם את המים בדיוק לשעה הנדרשת ולמעלות המדויקות (למשל: 42°C לשני ילדים ב-19:30, במקום להרתיח סתם ל-70°C). חיסכון ענק בחשמל!
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- App UI Mockup Showcase -->
-    <div style="margin: 60px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+    <!-- CENTERPIECE SPOTLIGHT: MOES 24GHz mmWave Radar & Light Sensor -->
+    <section id="moes-radar" class="moes-spotlight">
       <div>
-        <div class="section-eyebrow" style="text-align: right;">ממשק משתמש</div>
-        <h3 style="font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 16px;">שליטה מדויקת מהסמארטפון</h3>
-        <p style="color: var(--gray-text-sub); font-size: 1.1rem; line-height: 1.7; margin-bottom: 24px;">
-          ממשק Home Assistant מעוצב בסגנון כהה ויוקרתי: רואים בדיוק את גרף ההתחממות של המים, כמה וואט נצרך ברגע זה, וכמה זמן נותר עד שהדוד יגיע לטמפרטורת היעד.
+        <span class="moes-badge">🏆 הכי טוב של MOES • הטופ של עולם החיישנים</span>
+        <h2>גלאי נוכחות ותאורה MOES<br><span style="color: var(--neon-green);">24GHz mmWave Radar</span></h2>
+        <p>
+          גלאי תנועה רגיל (PIR) נכבה ברגע שעומדים בלי לזוז מתחת למים במקלחת. 
+          גלאי הרדאר של <strong>MOES (דגם ZSS-LP-HP02)</strong> מבוסס תדרי מיקרוגל 24GHz המסוגלים לזהות <strong>נשימה ומיקרו-תנועות</strong> מבעד לזכוכית המקלחון ואדי המים, יחד עם מד עוצמת תאורה (Lux) רציף!
         </p>
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-          <div class="apple-pill" style="justify-content: flex-start;"><span class="dot"></span> מד מעלות עגול ומרהיב בזמן אמת</div>
-          <div class="apple-pill" style="justify-content: flex-start;"><span class="dot"></span> כפתור "מקלחת חמה" לחימום מהיר בטמפרטורה מוגדרת</div>
-          <div class="apple-pill" style="justify-content: flex-start;"><span class="dot"></span> כיבוי אוטומטי מוחלט ב-45°C לשמירה על גוף החימום</div>
-          <div class="apple-pill" style="justify-content: flex-start;"><span class="dot"></span> התראות Push / וואטסאפ ישירות לנייד: "המקלחת מוכנה!"</div>
+
+        <div class="radar-vs-pir">
+          <div class="radar-box">
+            <h5 style="color: #ef4444;">❌ גלאי PIR רגיל</h5>
+            <p>מזהה רק תנועות גוף גדולות. אם מתקלחים או יושבים באמבטיה — האור והחישוב נכבים בטעות.</p>
+          </div>
+          <div class="radar-box win">
+            <h5 style="color: var(--neon-green);">✅ רדאר MOES 24GHz</h5>
+            <p>מזהה נשימה, טיפות מים ונוכחות סטטית מוחלטת. כולל חיישן Lux מובנה ומדידת מרחק במטרים.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="https://www.amazon.com/dp/B0CGX2DT9W" target="_blank" rel="noopener" class="btn-apple btn-apple-green">
+            🛒 רכישת גלאי MOES באמזון (B0CGX2DT9W)
+          </a>
+          <a href="https://www.aliexpress.com/w/wholesale-moes-zigbee-human-presence-sensor.html" target="_blank" rel="noopener" class="btn-apple btn-apple-dark">
+            📦 עליאקספרס (החנות הרשמית של MOES)
+          </a>
         </div>
       </div>
-      <div class="hero-visual">
-        <img src="images/smart_boiler_app_mockup.jpg" alt="Home Assistant App Interface">
+
+      <div style="text-align: center;">
+        <div style="background: rgba(0, 0, 0, 0.5); border: 1px solid var(--titanium-border); border-radius: 28px; padding: 36px; box-shadow: inset 0 0 40px rgba(0, 240, 118, 0.1);">
+          <div style="font-size: 5rem; margin-bottom: 10px;">📡</div>
+          <h4 style="font-size: 1.4rem; color: #fff; margin-bottom: 6px;">MOES mmWave Radar 24GHz</h4>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 20px;">
+            דיוק מילימטרי לחדר הרחצה • זווית 180° • טווח עד 6 מטר • חיישן תאורה 0-1000 Lux
+          </p>
+          <div class="apple-pill" style="display: inline-flex; background: rgba(0, 240, 118, 0.1); border-color: rgba(0, 240, 118, 0.3);">
+            <span class="logo-pulse"></span>
+            <span style="color: var(--neon-green); font-weight: 700;">מותאם 100% ל-Home Assistant & Zigbee2MQTT</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Verified Hardware Purchase Store -->
+    <!-- LIVE INTERACTIVE BOILER SIMULATOR -->
+    <section id="simulator" class="simulator-stage">
+      <div>
+        <div class="section-tag">סימולטור אינטראקטיבי בזמן אמת</div>
+        <h3 style="font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 14px;">בדקו כיצד המערכת מגיבה</h3>
+        <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.65; margin-bottom: 24px;">
+          לחצו על המצבים כדי לראות את התנהגות המערכת, התראת הטלפון, והכיבוי האוטומטי ברגע שהמים מגיעים לטמפרטורת היעד:
+        </p>
+
+        <div class="sim-controls">
+          <div class="sim-btn-group">
+            <button class="sim-btn active" id="btn-state-cold" onclick="setSimState('cold')">❄️ מים קרים (22°C)</button>
+            <button class="sim-btn" id="btn-state-heating" onclick="setSimState('heating')">🔥 דוד דולק (38°C)</button>
+            <button class="sim-btn" id="btn-state-ready" onclick="setSimState('ready')">🚿 מוכן! (45°C - כיבוי)</button>
+          </div>
+
+          <div id="sim-status-card" style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--titanium-border); border-radius: 18px; padding: 20px;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: var(--neon-green); text-transform: uppercase;">פעולת המערכת</div>
+            <div id="sim-status-title" style="font-size: 1.2rem; font-weight: 800; color: #fff; margin: 4px 0;">מים קרים — הסוויצ'ר כבוי</div>
+            <div id="sim-status-desc" style="font-size: 0.92rem; color: var(--text-secondary);">
+              הפרוב בשרוול מזהה 22 מעלות בלבד. לחיצה על "מקלחת חמה" באפליקציה תפעיל את הסוויצ'ר.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animated SVG Gauge -->
+      <div class="gauge-wrapper">
+        <svg class="gauge-svg" viewBox="0 0 280 280">
+          <circle class="gauge-bg" cx="140" cy="140" r="120" />
+          <circle class="gauge-progress" id="sim-gauge-circle" cx="140" cy="140" r="120" />
+        </svg>
+        <div class="gauge-center-content">
+          <div class="gauge-temp" id="sim-temp-display">22°C</div>
+          <div class="gauge-status" id="sim-status-label">המתנה</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Verified Hardware Store (Apple Store Grid) -->
     <section id="store">
-      <div class="section-eyebrow">רשימת ציוד ולינקים ישירים</div>
-      <h2 class="section-heading">כל הלינקים נבדקו ומאומתים (HTTP 200)</h2>
-      <p class="section-desc">מומלץ להזמין מאמזון (משלוח מהיר) או מעליאקספרס (הכי זול). הלינקים קנוניים ויציבים:</p>
+      <div class="section-header">
+        <div class="section-tag">חומרה מומלצת</div>
+        <h2 class="section-title">רכיבים ולינקים ישירים (HTTP 200)</h2>
+        <p class="section-subtitle">כל הלינקים נבדקו בבדיקת שרת חיה. מומלץ להזמין מאמזון (מהיר) או מעליאקספרס (זול):</p>
+      </div>
 
-      <div class="products-grid">
+      <div class="store-grid">
 
-        <!-- Item 1: Sonoff Dongle Plus -->
-        <div class="product-box">
+        <!-- Card 1: Sonoff Dongle Plus -->
+        <div class="product-card-apple">
           <div>
-            <div class="prod-category">רכזת שידור ראשית לראספברי פיי</div>
+            <div class="prod-eyebrow">רכזת שידור ראשית לראספברי</div>
             <h4>Sonoff Dongle Plus (P)</h4>
-            <div class="price-tag">~75 - 95 ₪</div>
-            <p class="desc">
+            <div class="prod-price">~75 - 95 ₪</div>
+            <p class="prod-desc">
               דונגל USB עם מעבד CC2652P, עוצמת שידור מקסימלית של +20dBm ואנטנה חיצונית 5dBi. מתחבר ישירות לרספברי פיי לטווח שיא.
             </p>
           </div>
-          <div class="store-btn-group">
-            <a href="https://www.amazon.com/dp/B09KXTCMSC" target="_blank" rel="noopener" class="apple-btn apple-btn-primary">
-              🛒 רכישה באמזון (משלוח מהיר)
+          <div class="buy-actions">
+            <a href="https://www.amazon.com/dp/B09KXTCMSC" target="_blank" rel="noopener" class="btn-apple btn-apple-green">
+              🛒 רכישה באמזון (B09KXTCMSC)
             </a>
-            <a href="https://www.aliexpress.com/w/wholesale-sonoff-zigbee-dongle-plus.html" target="_blank" rel="noopener" class="apple-btn apple-btn-secondary">
+            <a href="https://www.aliexpress.com/w/wholesale-sonoff-zigbee-dongle-plus.html" target="_blank" rel="noopener" class="btn-apple btn-apple-dark">
               📦 עליאקספרס (~70 ₪)
             </a>
           </div>
         </div>
 
-        <!-- Item 2: Battery Probe Sensor (Option A) -->
-        <div class="product-box">
+        <!-- Card 2: MOES mmWave Radar -->
+        <div class="product-card-apple" style="border-color: rgba(0, 240, 118, 0.4);">
           <div>
-            <div class="prod-category">חיישן סוללה 24/7 (הכי מומלץ)</div>
-            <h4>Tuya Zigbee Probe Sensor</h4>
-            <div class="price-tag">~45 - 60 ₪</div>
-            <p class="desc">
-              חיישן Zigbee הפועל על 2 סוללות AAA לשנתיים עם כבל פרוב נירוסטה מוגן מים. אפס עבודת חשמל ומדידה רציפה גם כשהדוד כבוי.
+            <div class="prod-eyebrow">גלאי נוכחות ותאורה (הכי טוב של MOES)</div>
+            <h4>MOES 24GHz mmWave Radar</h4>
+            <div class="prod-price">~85 - 110 ₪</div>
+            <p class="prod-desc">
+              רדאר מיקרוגל 24GHz המזהה נשימה ונוכחות סטטית במקלחת, יחד עם חיישן עוצמת תאורה (Lux). דגם ZSS-LP-HP02.
             </p>
           </div>
-          <div class="store-btn-group">
-            <a href="https://www.aliexpress.com/w/wholesale-zigbee-temperature-sensor-probe.html" target="_blank" rel="noopener" class="apple-btn apple-btn-primary">
+          <div class="buy-actions">
+            <a href="https://www.amazon.com/dp/B0CGX2DT9W" target="_blank" rel="noopener" class="btn-apple btn-apple-green">
+              🛒 רכישה באמזון (B0CGX2DT9W)
+            </a>
+            <a href="https://www.aliexpress.com/w/wholesale-moes-zigbee-human-presence-sensor.html" target="_blank" rel="noopener" class="btn-apple btn-apple-dark">
+              📦 עליאקספרס (MOES Official)
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: Battery Probe Sensor (24/7) -->
+        <div class="product-card-apple">
+          <div>
+            <div class="prod-eyebrow">חיישן סוללה 24/7 (הכי מומלץ לדוד)</div>
+            <h4>Tuya Zigbee Probe Sensor</h4>
+            <div class="prod-price">~45 - 60 ₪</div>
+            <p class="prod-desc">
+              פועל על 2 סוללות AAA לשנתיים עם כבל פרוב נירוסטה מוגן מים לשרוול הדוד. אפס עבודת חשמל ומדידה רציפה גם כשהסוויצ'ר כבוי.
+            </p>
+          </div>
+          <div class="buy-actions">
+            <a href="https://www.aliexpress.com/w/wholesale-zigbee-temperature-sensor-probe.html" target="_blank" rel="noopener" class="btn-apple btn-apple-green">
               📦 רכישה בעליאקספרס (פרוב נירוסטה)
             </a>
           </div>
         </div>
 
-        <!-- Item 3: Sonoff THR316 (Option B) -->
-        <div class="product-box">
+        <!-- Card 4: Sonoff THR316 (220V) -->
+        <div class="product-card-apple">
           <div>
-            <div class="prod-category">מודול 220V + כניסת חיישן</div>
+            <div class="prod-eyebrow">מודול 220V + כניסת חיישן</div>
             <h4>Sonoff THR316 (16A)</h4>
-            <div class="price-tag">~65 - 85 ₪</div>
-            <p class="desc">
+            <div class="prod-price">~65 - 85 ₪</div>
+            <p class="prod-desc">
               מודול חכם המתחבר ל-220V בארון בחדר המדרגות, עם שקע RJ11 ייעודי לפרוב טמפרטורה חיצוני ושידור נתונים לראספברי.
             </p>
           </div>
-          <div class="store-btn-group">
-            <a href="https://www.amazon.com/dp/B0B5GM1LTG" target="_blank" rel="noopener" class="apple-btn apple-btn-primary">
+          <div class="buy-actions">
+            <a href="https://www.amazon.com/dp/B0B5GM1LTG" target="_blank" rel="noopener" class="btn-apple btn-apple-green">
               🛒 רכישה באמזון (THR316)
             </a>
-            <a href="https://www.aliexpress.com/w/wholesale-sonoff-thr316.html" target="_blank" rel="noopener" class="apple-btn apple-btn-secondary">
+            <a href="https://www.aliexpress.com/w/wholesale-sonoff-thr316.html" target="_blank" rel="noopener" class="btn-apple btn-apple-dark">
               📦 עליאקספרס
             </a>
           </div>
         </div>
 
-        <!-- Item 4: Sonoff WTS01 Probe -->
-        <div class="product-box">
+        <!-- Card 5: Sonoff WTS01 Probe -->
+        <div class="product-card-apple">
           <div>
-            <div class="prod-category">פרוב נירוסטה עבור Sonoff</div>
+            <div class="prod-category" style="color: var(--neon-green); font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">פרוב נירוסטה עבור Sonoff</div>
             <h4>Sonoff WTS01 מוגן מים</h4>
-            <div class="price-tag">~40 ₪</div>
-            <p class="desc">
+            <div class="prod-price">~40 ₪</div>
+            <p class="prod-desc">
               פרוב מתכת דק ועמיד בחום גבוה (עד 115°C) עם מחבר RJ11 שמתחבר ישירות ל-THR316. מושחל לשרוול היבש.
             </p>
           </div>
-          <div class="store-btn-group">
-            <a href="https://www.amazon.com/dp/B0CBV9JF32" target="_blank" rel="noopener" class="apple-btn apple-btn-primary">
+          <div class="buy-actions">
+            <a href="https://www.amazon.com/dp/B0CBV9JF32" target="_blank" rel="noopener" class="btn-apple btn-apple-green">
               🛒 רכישה באמזון (WTS01)
             </a>
           </div>
         </div>
 
-        <!-- Item 5: Zigbee Repeater -->
-        <div class="product-box">
+        <!-- Card 6: Zigbee Smart Plug (Repeater) -->
+        <div class="product-card-apple">
           <div>
-            <div class="prod-category">מגדיל טווח (גיבוי ל-30 מטר)</div>
+            <div class="prod-eyebrow">מגדיל טווח (גיבוי ל-30 מטר)</div>
             <h4>Tuya Zigbee Smart Plug (Repeater)</h4>
-            <div class="price-tag">~28 - 35 ₪</div>
-            <p class="desc">
+            <div class="prod-price">~28 - 35 ₪</div>
+            <p class="prod-desc">
               שקע חכם רגיל המשמש כממסר Mesh. מניחים אותו בשקע ליד דלת הכניסה או הארון הקומתי לחדירת קירות בטון ללא הפרעות.
             </p>
           </div>
-          <div class="store-btn-group">
-            <a href="https://www.aliexpress.com/w/wholesale-tuya-zigbee-smart-plug.html" target="_blank" rel="noopener" class="apple-btn apple-btn-primary">
+          <div class="buy-actions">
+            <a href="https://www.aliexpress.com/w/wholesale-tuya-zigbee-smart-plug.html" target="_blank" rel="noopener" class="btn-apple btn-apple-green">
               📦 רכישה בעליאקספרס (~30 ₪)
             </a>
           </div>
         </div>
 
-        <!-- Item 6: Bathroom Motion Sensor -->
-        <div class="product-box">
-          <div>
-            <div class="prod-category">חיישן מקלחות (לשדרוג דותן AI)</div>
-            <h4>Sonoff SNZB-03P / Tuya Presence</h4>
-            <div class="price-tag">~45 - 65 ₪</div>
-            <p class="desc">
-              גלאי נוכחות ותנועה חכם לחדרי הרחצה, המאפשר למערכת לספור מקלחות ולזהות מתי מים חמים נצרכים בזמן אמת.
-            </p>
-          </div>
-          <div class="store-btn-group">
-            <a href="https://www.amazon.com/dp/B0C1GB4DVR" target="_blank" rel="noopener" class="apple-btn apple-btn-primary">
-              🛒 רכישה באמזון (SNZB-03P)
-            </a>
-            <a href="https://www.aliexpress.com/w/wholesale-tuya-zigbee-human-presence-sensor.html" target="_blank" rel="noopener" class="apple-btn apple-btn-secondary">
-              📦 עליאקספרס (נוכחות)
-            </a>
-          </div>
-        </div>
-
       </div>
 
-      <div style="margin-top: 36px; text-align: center; color: var(--gray-text-sub); font-size: 1.15rem;">
-        💰 <strong>עלות חומרה כוללת לבסיס המערכת:</strong> כ-180 עד 210 ₪ בלבד!
+      <div style="margin-top: 40px; text-align: center; color: var(--text-secondary); font-size: 1.15rem;">
+        💰 <strong>עלות חומרה כוללת לבסיס (דונגל + חיישן פרוב סוללה):</strong> כ-180 עד 210 ₪ בלבד!
       </div>
     </section>
 
-    <!-- Installation Section -->
+    <!-- Installation 4-Step Walkthrough -->
     <section id="installation">
-      <div class="section-eyebrow">מדריך התקנה</div>
-      <h2 class="section-heading">4 שלבים פשוטים. 0% מגע במים.</h2>
-      <p class="section-desc">התקנה יבשה לחלוטין ללא פירוק צנרת, ללא ריקון הדוד וללא שינוי בתרמוסטט הבטיחות המקורי:</p>
-
-      <div class="install-showcase">
-        <div class="hero-visual">
-          <img src="images/smart_boiler_installation_guide.jpg" alt="Technical 3D Installation Guide">
-        </div>
-
-        <div class="install-steps-list">
-          <div class="step-item">
-            <div class="step-num-circle">1</div>
-            <div>
-              <h5>פתיחת מכסה הפלסטיק התחתון</h5>
-              <p>מורידים את מפסק הפחת/הדוד בלוח לצורך בטיחות, ופותחים את מכסה הפלסטיק המגן שבתחתית הדוד בחדר המדרגות.</p>
-            </div>
-          </div>
-
-          <div class="step-item">
-            <div class="step-num-circle">2</div>
-            <div>
-              <h5>איתור שרוול התרמוסטט היבש</h5>
-              <p>בפלאנג' הדוד קיים צינור מתכת חלול ("שרוול יבש") שלתוכו מושחל התרמוסטט. אין בו שום מים!</p>
-            </div>
-          </div>
-
-          <div class="step-item">
-            <div class="step-num-circle">3</div>
-            <div>
-              <h5>השחלת פרוב הנירוסטה</h5>
-              <p>משחילים את פרוב הטמפרטורה הדק לתוך השרוול לצד המוט המקורי. לא נוגעים בברגים של גוף החימום!</p>
-            </div>
-          </div>
-
-          <div class="step-item">
-            <div class="step-num-circle">4</div>
-            <div>
-              <h5>צימוד לראספברי וסיום</h5>
-              <p>מחברים את דונגל ה-Zigbee לרספברי פיי בבית – החיישן מזוהה מיידית ב-Home Assistant והמערכת פעילה!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive Savings Calculator (Apple Widget Style) -->
-    <section class="apple-calc">
-      <div>
-        <div class="section-eyebrow" style="text-align: right;">חיסכון באנרגיה</div>
-        <h3 style="font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 12px;">מחשבון חיסכון שנתי בחשמל</h3>
-        <p style="color: var(--gray-text-sub); font-size: 1rem; line-height: 1.6;">
-          רוב האנשים שוכחים את הדוד דולק בין 60 ל-120 דקות, כאשר בפועל נדרשות רק כ-25 דקות להגיע ל-45°C.
-          גרור את הסרגל כדי לראות כמה כסף המערכת חוסכת לך מדי שנה:
-        </p>
-
-        <div class="calc-slider-container">
-          <div class="calc-slider-label">
-            <span>זמן דוד ממוצע כיום ביום:</span>
-            <strong id="slider-label-val">90 דקות</strong>
-          </div>
-          <input type="range" id="time-slider" min="30" max="180" step="10" value="90">
-        </div>
-        <p style="font-size: 0.85rem; color: var(--gray-text-muted);">* מחושב לפי גוף חימום 2,500W, תעריף חשמל 0.61 ₪ לקוט"ש, 330 ימי שימוש בשנה.</p>
+      <div class="section-header">
+        <div class="section-tag">מדריך התקנה</div>
+        <h2 class="section-title">4 שלבים פשוטים. 0% מגע במים.</h2>
+        <p class="section-subtitle">התקנה יבשה לחלוטין ללא פירוק צנרת, ללא ריקון הדוד וללא שינוי בתרמוסטט הבטיחות המקורי:</p>
       </div>
 
-      <div class="calc-display-card">
-        <div style="font-size: 0.95rem; color: var(--gray-text-sub); font-weight: 600;">חיסכון שנתי מוערך בחשמל:</div>
-        <div class="calc-display-val" id="savings-display">~440 ₪</div>
-        <div style="font-size: 0.92rem; color: var(--green-mint);">המערכת מחזירה את כל עלותה תוך כ-5 חודשים בלבד! 🎉</div>
+      <div class="install-stage">
+        <div class="spatial-screen">
+          <img src="images/smart_boiler_installation_guide.jpg" alt="Technical 3D Cutaway Installation">
+        </div>
+
+        <div>
+          <div class="step-box-apple">
+            <div class="step-num-apple">1</div>
+            <div>
+              <h5 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">פתיחת מכסה הפלסטיק התחתון</h5>
+              <p style="color: var(--text-secondary); font-size: 0.95rem;">מורידים את מפסק הפחת/הדוד בלוח לצורך בטיחות, ופותחים את מכסה הפלסטיק המגן שבתחתית הדוד בחדר המדרגות.</p>
+            </div>
+          </div>
+
+          <div class="step-box-apple">
+            <div class="step-num-apple">2</div>
+            <div>
+              <h5 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">איתור שרוול התרמוסטט היבש</h5>
+              <p style="color: var(--text-secondary); font-size: 0.95rem;">בפלאנג' הדוד קיים צינור מתכת חלול ("שרוול יבש") שלתוכו מושחל התרמוסטט. אין בו שום מים!</p>
+            </div>
+          </div>
+
+          <div class="step-box-apple">
+            <div class="step-num-apple">3</div>
+            <div>
+              <h5 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">השחלת פרוב הנירוסטה</h5>
+              <p style="color: var(--text-secondary); font-size: 0.95rem;">משחילים את פרוב הטמפרטורה הדק לתוך השרוול לצד המוט המקורי. לא נוגעים בברגים של גוף החימום!</p>
+            </div>
+          </div>
+
+          <div class="step-box-apple">
+            <div class="step-num-apple">4</div>
+            <div>
+              <h5 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">צימוד לראספברי וסיום</h5>
+              <p style="color: var(--text-secondary); font-size: 0.95rem;">מחברים את דונגל ה-Zigbee לרספברי פיי בבית – החיישן מזוהה מיידית ב-Home Assistant והמערכת פעילה!</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
   </div>
 
-  <!-- Apple Minimal Footer -->
+  <!-- Apple Minimal Spatial Footer -->
   <footer>
     <div class="container">
-      <p>⚡ פרויקט דוד חכם מבוסס טמפרטורה וחיזוי AI | פותח ונבנה בהתאמה אישית ע"י דותן</p>
-      <p style="margin-top: 6px;">
-        כל הזכויות שמורות © 2026 | מבוסס Home Assistant, Zigbee 3.0, ואינטגרציית Switcher מקומית
-      </p>
+      <p style="font-weight: 600; color: #fff;">⚡ Smart Boiler Spatial Experience | פותח ונבנה ע"י דותן</p>
+      <p style="margin-top: 8px;">כל הזכויות שמורות © 2026 | מבוסס Home Assistant, Zigbee 3.0, ואינטגרציית Switcher מקומית</p>
     </div>
   </footer>
 
   <script>
-    const slider = document.getElementById('time-slider');
-    const labelVal = document.getElementById('slider-label-val');
-    const display = document.getElementById('savings-display');
+    // Interactive Simulator State Machine
+    function setSimState(state) {
+      const circle = document.getElementById('sim-gauge-circle');
+      const tempDisplay = document.getElementById('sim-temp-display');
+      const statusLabel = document.getElementById('sim-status-label');
+      const title = document.getElementById('sim-status-title');
+      const desc = document.getElementById('sim-status-desc');
 
-    slider.addEventListener('input', function() {
-      const minutes = parseInt(this.value);
-      labelVal.textContent = `${minutes} דקות`;
-      
-      const wastedMinutes = Math.max(0, minutes - 25);
-      const wastedHoursPerDay = wastedMinutes / 60;
-      const kwhPerDay = wastedHoursPerDay * 2.5; // 2500W
-      const costPerDay = kwhPerDay * 0.61; // 0.61 ILS/kWh
-      const yearlySavings = Math.round(costPerDay * 330);
+      // Reset buttons
+      document.getElementById('btn-state-cold').classList.remove('active');
+      document.getElementById('btn-state-heating').classList.remove('active');
+      document.getElementById('btn-state-ready').classList.remove('active');
 
-      display.textContent = `~${yearlySavings} ₪`;
-    });
+      if (state === 'cold') {
+        document.getElementById('btn-state-cold').classList.add('active');
+        circle.style.strokeDashoffset = '550';
+        circle.style.stroke = 'rgba(255, 255, 255, 0.2)';
+        tempDisplay.textContent = '22°C';
+        statusLabel.textContent = 'המתנה';
+        statusLabel.style.color = 'var(--text-secondary)';
+        title.textContent = 'מים קרים — הסוויצ\'ר כבוי';
+        desc.textContent = 'הפרוב בשרוול מזהה 22 מעלות בלבד. לחיצה על "מקלחת חמה" באפליקציה תפעיל את הסוויצ\'ר.';
+      } else if (state === 'heating') {
+        document.getElementById('btn-state-heating').classList.add('active');
+        circle.style.strokeDashoffset = '340';
+        circle.style.stroke = '#f59e0b';
+        tempDisplay.textContent = '38°C';
+        statusLabel.textContent = 'מתחמם...';
+        statusLabel.style.color = '#f59e0b';
+        title.textContent = 'הדוד בפעולה — צריכה 2,450W';
+        desc.textContent = 'קצב החימום הוא כ-1.2 מעלות לדקה. Home Assistant עוקב אחרי הגרף וממתין להגעה ל-45°C.';
+      } else if (state === 'ready') {
+        document.getElementById('btn-state-ready').classList.add('active');
+        circle.style.strokeDashoffset = '180';
+        circle.style.stroke = 'var(--neon-green)';
+        tempDisplay.textContent = '45°C';
+        statusLabel.textContent = 'מוכן! נותק';
+        statusLabel.style.color = 'var(--neon-green)';
+        title.textContent = 'כיבוי אוטומטי הופעל! 🚿';
+        desc.textContent = 'הטמפרטורה הגיעה ליעד. הסוויצ\'ר נכבה לבד, ונשלחה התראה לטלפון: "המים חמים — המקלחת מוכנה!".';
+      }
+    }
   </script>
 </body>
 </html>
